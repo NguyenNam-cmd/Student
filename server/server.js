@@ -8,11 +8,10 @@ const forumRoutes = require('./routes/topics');
 const adminRoutes = require('./routes/admin');
 const commentRoutes = require('./routes/comments'); 
 
-
 const app = express();
 
 // Middleware
-app.use(cors());
+app.use(cors()); // Chỉ cho phép frontend trên Vercel
 app.use(express.json());
 
 // Routes
@@ -23,9 +22,9 @@ app.use('/api/comments', commentRoutes);
 
 // MongoDB Connection
 mongoose
-  .connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => console.log('MongoDB connected'))
-  .catch((err) => console.error('MongoDB connection error:', err));
+  .connect(process.env.MONGO_URI) // Xóa các tùy chọn deprecated
+  .then(() => console.log('MongoDB Atlas connected'))
+  .catch((err) => console.error('MongoDB Atlas connection error:', err));
 
 // Start Server
 const PORT = process.env.PORT || 5000;
