@@ -138,14 +138,16 @@ const seedDatabase = async () => {
     const comments = await Comment.insertMany([
       {
         content: 'Bài viết tuyệt vời! Tôi đã học được rất nhiều về React Hooks.',
-        post: firstPost._id,
+        postId: firstPost._id, // Sửa: sử dụng postId thay vì post
+        topicId: firstTopic._id, // Thêm topicId
         author: { id: tuanLuu._id, name: tuanLuu.name, role: tuanLuu.role },
         createdAt: new Date('2025-04-19'),
         replies: [],
       },
       {
         content: 'Cảm ơn phản hồi của bạn! Thật vui vì bạn thấy nó hữu ích.',
-        post: firstPost._id,
+        postId: firstPost._id, // Sửa: sử dụng postId thay vì post
+        topicId: firstTopic._id, // Thêm topicId
         parentComment: null,
         author: { id: nguyenDung._id, name: nguyenDung.name, role: nguyenDung.role },
         createdAt: new Date('2025-04-19'),
@@ -153,7 +155,8 @@ const seedDatabase = async () => {
       },
       {
         content: 'Bạn có thể giải thích chi tiết hơn về useEffect không?',
-        post: firstPost._id,
+        postId: firstPost._id, // Sửa: sử dụng postId thay vì post
+        topicId: firstTopic._id, // Thêm topicId
         parentComment: null,
         author: { id: namHoang._id, name: namHoang.name, role: namHoang.role },
         createdAt: new Date('2025-04-19'),
@@ -165,7 +168,8 @@ const seedDatabase = async () => {
     const replies = await Comment.insertMany([
       {
         content: 'Chắc chắn, useEffect được sử dụng cho các hiệu ứng phụ trong React...',
-        post: firstPost._id,
+        postId: firstPost._id, // Sửa: sử dụng postId thay vì post
+        topicId: firstTopic._id, // Thêm topicId
         parentComment: comments[2]._id,
         author: { id: nguyenDung._id, name: nguyenDung.name, role: nguyenDung.role },
         createdAt: new Date('2025-04-19'),
@@ -174,8 +178,7 @@ const seedDatabase = async () => {
     ]);
 
     // Update the third comment with the reply
-    comments[2].replies = [replies[0]._id];
-    await comments[2].save();
+    await Comment.findByIdAndUpdate(comments[2]._id, { replies: [replies[0]._id] });
 
     // Update the first post with comments
     firstTopic.posts[0].comments = [comments[0]._id, comments[1]._id, comments[2]._id];
