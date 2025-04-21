@@ -32,6 +32,11 @@ app.use((err, req, res, next) => {
 });
 
 // MongoDB Connection (Using MongoDB Atlas)
+if (!process.env.MONGODB_URI) {
+  console.error('Error: MONGODB_URI is not defined in environment variables');
+  process.exit(1);
+}
+
 mongoose
   .connect(process.env.MONGODB_URI)
   .then(() => console.log('MongoDB Atlas connected'))

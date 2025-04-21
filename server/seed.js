@@ -5,7 +5,7 @@ const Topic = require('./models/Topic');
 const Comment = require('./models/Comment');
 
 mongoose
-  .connect('mongodb://localhost:27017/student_management', { useNewUrlParser: true, useUnifiedTopology: true })
+  .connect('https://student-dun.vercel.app', { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log('MongoDB connected'))
   .catch((err) => console.error('MongoDB connection error:', err));
 
