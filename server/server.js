@@ -11,7 +11,7 @@ const commentRoutes = require('./routes/comments');
 const app = express();
 
 // CORS Configuration - Cho phép tất cả origin
-app.use(cors());
+app.use(cors()); // Bỏ corsOptions, cho phép tất cả origin
 
 // Middleware
 app.use(express.json());
@@ -31,18 +31,13 @@ app.use((err, req, res, next) => {
   });
 });
 
-// MongoDB Connection (Using MongoDB Atlas)
-if (!process.env.MONGODB_URI) {
-  console.error('Error: MONGODB_URI is not defined in environment variables');
-  process.exit(1);
-}
-
+// MongoDB Connection (Local MongoDB for Compass)
 mongoose
-  .connect(process.env.MONGODB_URI)
-  .then(() => console.log('MongoDB Atlas connected'))
+  .connect('mongodb://localhost:27017/student_management')
+  .then(() => console.log('MongoDB Local connected (MongoDB Compass)'))
   .catch((err) => {
-    console.error('MongoDB Atlas connection error:', err);
-    process.exit(1);
+    console.error('MongoDB Local connection error:', err);
+    process.exit(1); // Thoát ứng dụng nếu không kết nối được MongoDB
   });
 
 // Start Server
