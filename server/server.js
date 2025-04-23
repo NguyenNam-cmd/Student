@@ -35,10 +35,7 @@ app.use((err, req, res, next) => {
 const mongoURI = process.env.MONGODB_URI || 'mongodb+srv://namnguyendev:Namvuive123@studentmanagement.ng4uulh.mongodb.net/?retryWrites=true&w=majority&appName=studentmanagement';
 
 mongoose
-  .connect(mongoURI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+  .connect(mongoURI)
   .then(() => console.log('MongoDB Atlas connected successfully'))
   .catch((err) => {
     console.error('MongoDB Atlas connection error:', err);
