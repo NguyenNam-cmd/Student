@@ -31,12 +31,17 @@ app.use((err, req, res, next) => {
   });
 });
 
-// MongoDB Connection (Local MongoDB for Compass)
+// MongoDB Atlas Connection
+const mongoURI = process.env.MONGODB_URI || 'mongodb+srv://namnguyendev:Namvuive123@studentmanagement.ng4uulh.mongodb.net/?retryWrites=true&w=majority&appName=studentmanagement';
+
 mongoose
-  .connect('mongodb://127.0.0.1:27017/student_management')
-  .then(() => console.log('MongoDB Local connected (MongoDB Compass)'))
+  .connect(mongoURI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => console.log('MongoDB Atlas connected successfully'))
   .catch((err) => {
-    console.error('MongoDB Local connection error:', err);
+    console.error('MongoDB Atlas connection error:', err);
     process.exit(1); // Thoát ứng dụng nếu không kết nối được MongoDB
   });
 
