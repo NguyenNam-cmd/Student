@@ -33,7 +33,7 @@ app.use((err, req, res, next) => {
 
 // MongoDB Connection (Local MongoDB for Compass)
 mongoose
-  .connect('mongodb://localhost:27017/student_management')
+  .connect('mongodb://127.0.0.1:27017/student_management')
   .then(() => console.log('MongoDB Local connected (MongoDB Compass)'))
   .catch((err) => {
     console.error('MongoDB Local connection error:', err);
